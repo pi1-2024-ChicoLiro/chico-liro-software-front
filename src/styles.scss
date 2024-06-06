@@ -1,0 +1,73 @@
+@import "~simplebar/dist/simplebar.css";
+@import "~highlight.js/styles/androidstudio.css";
+// Vex Core
+@import "./@vex/styles/core";
+@import "@ctrl/ngx-emoji-mart/picker";
+
+.success-snackbar {
+  background: #048444;
+  color: #fff;
+}
+
+.error-snackbar {
+  background-color: #c03c3e;
+  color: #fff;
+}
+
+.warning-snackbar {
+  background: #ffc107;
+  color: #333;
+}
+
+.mat-mdc-snack-bar-container {
+  &.success-snackbar {
+    --mdc-snackbar-container-color: #048444;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  &.error-snackbar {
+    --mdc-snackbar-container-color: #c03c3e;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  &.warning-snackbar {
+    --mdc-snackbar-container-color: #ffc107; /* Cor de fundo para o container */
+    --mat-mdc-snack-bar-button-color: #333; /* Cor do botão do Snackbar */
+    --mdc-snackbar-supporting-text-color: #333; /* Cor do texto de suporte (mensagem) */
+  }
+}
+.bg-glossy {
+  backdrop-filter: saturate(180%) blur(20px);
+  @apply bg-foreground/60;
+}
+/*
+  You can override any CSS Variable or style here
+  Example:
+
+  :root {
+   --sidenav-background: #333333;
+  }
+
+  All possible variables can be found in @vex/styles/core or by simply inspecting the element you want to change
+  in Chrome/Firefox DevTools
+*/
+
+/**
+  Uncomment the below code and adjust the values to fit your colors, the application will automatically adjust
+ */
+:root {
+  // --color-primary: blue;
+  // --color-primary-contrast: white;
+
+  // --color-accent: yellow;
+  // --color-accent-contrast: black;
+
+  // --color-warn: yellow;
+  // --color-warn-contrast: black;
+}

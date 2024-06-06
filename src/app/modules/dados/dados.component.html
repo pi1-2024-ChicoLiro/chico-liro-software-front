@@ -1,4 +1,4 @@
-<vex-secondary-toolbar current="Dashboard">
+<vex-secondary-toolbar current="Tabelas">
   <vex-breadcrumbs
     [crumbs]="['Tabelas', 'Dados']"
     class="flex-auto"
@@ -15,7 +15,6 @@
     [columns]="columns"
     [data]="tableData"
     [dataSource]="tableData"
-    [menu]="menu"
     [createBtn]="false"
     (reload)="reload()"
     (paginatorChanged)="paginatorChange($event)"

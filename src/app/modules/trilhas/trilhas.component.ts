@@ -76,15 +76,6 @@ export class UsersComponent implements OnInit {
     },
   ];
 
-  menu: any[] = [
-    {
-      menu: "delete",
-    },
-    {
-      menu: "update",
-    },
-  ];
-
   pagination = {
     pageIndex: 1,
     pageSize: 10,

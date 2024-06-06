@@ -1,49 +1,31 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
-import { TableColumn } from "../../../@vex/interfaces/table-column.interface";
+import { Socket } from "ngx-socket-io";
+import { Subscription } from "rxjs";
 import { defaultChartOptions } from "../../../@vex/utils/default-chart-options";
 
 @Component({
   selector: "vex-dashboard-analytics",
   templateUrl: "./dashboard-analytics.component.html",
 })
-export class DashboardAnalyticsComponent implements OnInit {
-  users: any;
-  constructor(private dialog: MatDialog) {}
+export class DashboardAnalyticsComponent implements OnInit, OnDestroy {
+  constructor(private dialog: MatDialog, private socket: Socket) {}
 
-  async ngOnInit() {}
-  tableColumns: TableColumn<any>[] = [
-    {
-      label: "",
-      property: "status",
-      type: "badge",
-    },
-    {
-      label: "PRODUCT",
-      property: "name",
-      type: "text",
-    },
-    {
-      label: "$ PRICE",
-      property: "price",
-      type: "text",
-      cssClasses: ["font-medium"],
-    },
-    {
-      label: "DATE",
-      property: "timestamp",
-      type: "text",
-      cssClasses: ["text-secondary"],
-    },
-  ];
-  // tableData = tableSalesData;
+  private subscriptions = new Subscription();
 
-  series: ApexAxisChartSeries = [
-    {
-      name: "Subscribers",
-      data: [28, 40, 36, 0, 52, 38, 60, 55, 67, 33, 89, 44],
-    },
-  ];
+  async ngOnInit() {
+    this.subscriptions.add(
+      this.socket.fromEvent("front-data").subscribe((data) => {
+        console.log(data);
+
+        //dados enviados pelo websocket do backend
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
 
   userSessionsSeries: ApexAxisChartSeries = [
     {
@@ -60,20 +42,6 @@ export class DashboardAnalyticsComponent implements OnInit {
     {
       name: "Sales",
       data: [28, 40, 36, 0, 52, 38, 60, 55, 99, 54, 38, 87],
-    },
-  ];
-
-  pageViewsSeries: ApexAxisChartSeries = [
-    {
-      name: "Page Views",
-      data: [405, 800, 200, 600, 105, 788, 600, 204],
-    },
-  ];
-
-  uniqueUsersSeries: ApexAxisChartSeries = [
-    {
-      name: "Unique Users",
-      data: [356, 806, 600, 754, 432, 854, 555, 1004],
     },
   ];
 

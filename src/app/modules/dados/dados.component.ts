@@ -61,21 +61,6 @@ export class DadosComponent implements OnInit {
       cssClasses: ["text-secondary"],
       visible: true,
     },
-    {
-      label: "Ações",
-      property: "actions",
-      type: "button",
-      visible: true,
-    },
-  ];
-
-  menu: any[] = [
-    {
-      menu: "delete",
-    },
-    {
-      menu: "update",
-    },
   ];
 
   pagination = {

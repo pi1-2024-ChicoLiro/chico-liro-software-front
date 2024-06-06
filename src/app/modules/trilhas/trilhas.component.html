@@ -1,4 +1,4 @@
-<vex-secondary-toolbar current="Dashboard">
+<vex-secondary-toolbar current="Tabelas">
   <vex-breadcrumbs
     [crumbs]="['Tabelas', 'Trilhas']"
     class="flex-auto"
@@ -15,12 +15,11 @@
     [columns]="columns"
     [data]="tableData"
     [dataSource]="tableData"
-    [menu]="menu"
     [createBtn]="false"
     (reload)="getData()"
     (paginatorChanged)="paginatorChange($event)"
     (filting)="(null)"
     (count)="(count)"
-    [length]="pagination.length"
+    [length]="pagination?.length"
   ></vex-aio-table>
 </div>

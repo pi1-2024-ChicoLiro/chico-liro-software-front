@@ -18,7 +18,9 @@ import { DadosComponent } from "./modules/dados/dados.component";
 import { DashboardAnalyticsModule } from "./modules/dashboard/dashboard-analytics.module";
 import { UsersComponent } from "./modules/trilhas/trilhas.component";
 import { AioTableModule } from "./shared/components/aio-table/aio-table.module";
+import { DadosService } from "./shared/services/dados.service";
 import { LoadingService } from "./shared/services/loading.service";
+import { TrilhasService } from "./shared/services/trilhas.service";
 import { UtilsService } from "./shared/services/utils.service";
 
 const config: SocketIoConfig = {
@@ -61,7 +63,7 @@ const config: SocketIoConfig = {
     }),
     SocketIoModule.forRoot(config),
   ],
-  providers: [LoadingService, UtilsService],
+  providers: [LoadingService, UtilsService, TrilhasService, DadosService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

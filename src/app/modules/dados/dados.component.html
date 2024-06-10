@@ -16,11 +16,14 @@
     [data]="tableData"
     [dataSource]="tableData"
     [createBtn]="false"
-    (reload)="reload()"
+    (reload)="getAllData()"
     (paginatorChanged)="paginatorChange($event)"
     (filting)="(null)"
     [length]="pagination.length"
     (count)="(count)"
     [searchCtrl]="searchCtrl"
+    [showSelectTrilha]="true"
+    [trilhas]="trilhasData"
+    (changeSelect)="trilhaChange($event)"
   ></vex-aio-table>
 </div>

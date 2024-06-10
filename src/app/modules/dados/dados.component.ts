@@ -2,9 +2,11 @@ import { Component, OnInit } from "@angular/core";
 import { UntypedFormControl } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
-import { BehaviorSubject, Observable, of } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { TableColumn } from "src/@vex/interfaces/table-column.interface";
+import { DadosService } from "src/app/shared/services/dados.service";
 import { LoadingService } from "src/app/shared/services/loading.service";
+import { TrilhasService } from "src/app/shared/services/trilhas.service";
 
 @UntilDestroy()
 @Component({
@@ -32,31 +34,45 @@ export class DadosComponent implements OnInit {
     // { label: "Imagem", property: "profilePic", type: "image", visible: true },
 
     {
-      label: "Nome",
-      property: "nome",
+      label: "RPM",
+      property: "rpm",
       type: "text",
       cssClasses: ["font-medium"],
       visible: true,
     },
 
     {
-      label: "Telefone",
-      property: "telefone",
+      label: "Tensão",
+      property: "tensao",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,
     },
     {
-      label: "Status",
-      property: "status",
+      label: "Velocidade Inst",
+      property: "velocidadeInstantanea",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,
     },
 
     {
-      label: "Tags",
-      property: "tag",
+      label: "Aceleração Inst",
+      property: "acelaeracaoInstantanea",
+      type: "text",
+      cssClasses: ["text-secondary"],
+      visible: true,
+    },
+    {
+      label: "Consumo Energetico",
+      property: "consumoEnergetico",
+      type: "text",
+      cssClasses: ["text-secondary"],
+      visible: true,
+    },
+    {
+      label: "Data Criação",
+      property: "createdAt",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,
@@ -71,52 +87,69 @@ export class DadosComponent implements OnInit {
 
   subject$: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   data$: Observable<any> = this.subject$.asObservable();
+  trilhasData = [];
 
   constructor(
     private dialog: MatDialog,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private dadosService: DadosService,
+    private trilhasService: TrilhasService
   ) {}
 
   async ngOnInit() {
     this.searchCtrl.valueChanges
       .pipe(untilDestroyed(this))
       .subscribe((value) => this.onFilterChange(value));
-    await this.getAllData();
-  }
 
-  getData(clientes) {
-    return of(clientes);
+    const [trilhas, data]: any = await Promise.all([
+      this.trilhasService.getAllTrilhas(),
+      this.getAllData(),
+    ]);
+
+    this.trilhasData = trilhas.data;
   }
 
   async getAllData() {
-    // this.loadingService.showLoading(true);
-    // try {
-    //   const response: any = await this.clientsService.getClients(
-    //     this.pagination.pageSize,
-    //     this.pagination.pageIndex
-    //   );
-    //   this.pagination.length = response.count;
-    //   this.getData(response.items).subscribe((customers) => {
-    //     this.subject$.next(customers);
-    //   });
-    //   this.data$.pipe(filter<any>(Boolean)).subscribe((clients) => {
-    //     this.tableData = clients;
-    //   });
-    //   // if (response.limit) {
-    //   //   this.tableData = response.items;
-    //   //   this.pagination.length = response.count;
-    //   //   this.cd.detectChanges()
-    //   // }
-    // } catch (error) {
-    //   console.log(error);
-    //   this.utilsService.showSnackbar(error.error.message, "error");
-    // } finally {
-    //   this.loadingService.showLoading(false);
-    //   this.complete = true;
-    // }
+    this.loadingService.showLoading(true);
+    try {
+      const response: any = await this.dadosService.getAll(
+        this.pagination.pageSize,
+        this.pagination.pageIndex
+      );
+
+      this.tableData = response.data.dados;
+      this.pagination.length = response.data.count;
+
+      this.subject$.next(this.tableData);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.loadingService.showLoading(false);
+      this.complete = true;
+    }
   }
 
-  reload() {}
+  async trilhaChange(trilhaId: any) {
+    if (trilhaId == 0) return await this.getAllData();
+
+    this.loadingService.showLoading(true);
+    try {
+      const response: any = await this.dadosService.getDadosByTrilha(
+        trilhaId,
+        this.pagination.pageSize,
+        this.pagination.pageIndex
+      );
+
+      this.tableData = response.data.dados;
+      this.pagination.length = response.data.count;
+
+      this.subject$.next(this.tableData);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.loadingService.showLoading(false);
+    }
+  }
 
   onFilterChange(value: string) {
     if (!this.tableData) {

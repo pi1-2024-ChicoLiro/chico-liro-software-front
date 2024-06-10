@@ -48,6 +48,9 @@ export class AioTableComponent<T> implements OnInit, AfterViewInit {
   @Input() title: string;
   @Input() count: number = 0;
   @Input() createBtn: boolean = true;
+  @Input() showSelectTrilha: boolean = false;
+  @Input() trilhas: any[] = [];
+  @Output() changeSelect = new EventEmitter<T>();
   @Output() create = new EventEmitter<T>();
   @Output() update = new EventEmitter<T>();
   @Output() updateStatus = new EventEmitter<T>();
@@ -67,7 +70,7 @@ export class AioTableComponent<T> implements OnInit, AfterViewInit {
   columns: TableColumn<T>[] = [];
   pageSize = 10;
   @Input()
-  pageSizeOptions: number[] = [5, 10, 20, 50, 100, 200, 500];
+  pageSizeOptions: number[] = [5, 10, 20, 50];
   @Input()
   dataSource: MatTableDataSource<T> | null;
   selection = new SelectionModel<T>(true, []);
@@ -79,9 +82,7 @@ export class AioTableComponent<T> implements OnInit, AfterViewInit {
 
   constructor(private dialog: MatDialog, private cdref: ChangeDetectorRef) {}
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   this.updateData();
-  // }
+  selectedTrilha: any;
 
   get visibleColumns() {
     return this.columns
@@ -150,6 +151,10 @@ export class AioTableComponent<T> implements OnInit, AfterViewInit {
 
   btnUpdateStatus(item: T) {
     this.updateStatus.emit(item);
+  }
+
+  changeSelectTrilha() {
+    this.changeSelect.emit(this.selectedTrilha);
   }
 
   onFilterChange(value: string) {

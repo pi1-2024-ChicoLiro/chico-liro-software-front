@@ -3,6 +3,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { BehaviorSubject, Observable } from "rxjs";
 import { TableColumn } from "src/@vex/interfaces/table-column.interface";
 import { LoadingService } from "src/app/shared/services/loading.service";
+import { TrilhasService } from "src/app/shared/services/trilhas.service";
 
 @Component({
   selector: "vex-trilhas",
@@ -34,20 +35,14 @@ export class UsersComponent implements OnInit {
 
     {
       label: "Nome",
-      property: "nome",
+      property: "name",
       type: "text",
       cssClasses: ["font-medium"],
       visible: true,
     },
-    // {
-    //   label: "Usuário",
-    //   property: "usuario",
-    //   type: "text",
-    //   cssClasses: ["text-secondary"],
-    //   visible: true,
-    // },
+
     {
-      label: "Em uso",
+      label: "Em movimento",
       property: "isMoving",
       type: "text",
       cssClasses: ["text-secondary"],
@@ -69,7 +64,14 @@ export class UsersComponent implements OnInit {
     },
     {
       label: "Tempo Total",
-      property: "time",
+      property: "tempoDePercurso",
+      type: "text",
+      cssClasses: ["text-secondary"],
+      visible: true,
+    },
+    {
+      label: "Distancia",
+      property: "distanciaPercorrida",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,
@@ -87,14 +89,33 @@ export class UsersComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private trilhasService: TrilhasService
   ) {}
 
   async ngOnInit() {
     await this.getData();
   }
 
-  async getData() {}
+  async getData() {
+    this.loadingService.showLoading(true);
+    try {
+      const response: any = await this.trilhasService.getPaginadoTrilhas(
+        this.pagination.pageSize,
+        this.pagination.pageIndex
+      );
+      if (!response.success) {
+        return;
+      }
+      this.tableData = response.data.trilhas;
+      this.pagination.length = response.data.count;
+
+      this.subject$.next(this.tableData);
+    } catch (error) {
+    } finally {
+      this.loadingService.showLoading(false);
+    }
+  }
 
   async paginatorChange(ev: any) {
     this.pagination.pageSize = ev.pageSize;

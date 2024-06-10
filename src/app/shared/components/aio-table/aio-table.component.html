@@ -52,7 +52,7 @@
             svgIcon="mat:search"
           ></mat-icon>
         </div>
-        <button
+        <!-- <button
           mat-raised-button
           color="primary"
           style="margin-left: 5px"
@@ -60,17 +60,32 @@
           [disabled]="!searchCtrl.value"
         >
           pesquisa avançada
-        </button>
-        <!-- <button
+        </button> -->
+        <button
           mat-raised-button
-          color="foreground"
+          color="primary"
           style="margin-left: 5px"
           (click)="btnReset()"
         >
           Limpar
-        </button> -->
+        </button>
 
         <span class="flex-1"></span>
+        <ng-container *ngIf="showSelectTrilha">
+          <mat-form-field appearance="outline" class="w-64 mt-6">
+            <mat-label>Trilha</mat-label>
+            <mat-select
+              [(value)]="selectedTrilha"
+              (selectionChange)="changeSelectTrilha()"
+            >
+              <mat-option value="0">Todas</mat-option>
+              <mat-option *ngFor="let trilha of trilhas" [value]="trilha.id">
+                {{ trilha.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+
         <button
           [matMenuTriggerFor]="columnFilterMenu"
           class="ml-4 flex-none"

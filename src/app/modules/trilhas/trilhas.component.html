@@ -1,6 +1,6 @@
 <vex-secondary-toolbar current="Tabelas">
   <vex-breadcrumbs
-    [crumbs]="['Tabelas', 'Trilhas']"
+    [crumbs]="['Tabelas', 'Percursos']"
     class="flex-auto"
   ></vex-breadcrumbs>
 
@@ -11,7 +11,7 @@
 
 <div class="container p-gutter">
   <vex-aio-table
-    [title]="'Trilhas'"
+    [title]="'Percursos'"
     [columns]="columns"
     [data]="tableData"
     [dataSource]="tableData"
@@ -19,7 +19,7 @@
     (reload)="getData()"
     (paginatorChanged)="paginatorChange($event)"
     (filting)="(null)"
-    (count)="(count)"
+    [count]="pagination?.length"
     [length]="pagination?.length"
   ></vex-aio-table>
 </div>

@@ -43,21 +43,21 @@ export class UsersComponent implements OnInit {
 
     {
       label: "Em movimento",
-      property: "isMoving",
+      property: "isMovingFormatted",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,
     },
     {
       label: "Data de Ínicio",
-      property: "startDate",
+      property: "startMovingDatetimeFormatted",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,
     },
     {
       label: "Data de Fim",
-      property: "email",
+      property: "endMovingDatetimeFormatted",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,

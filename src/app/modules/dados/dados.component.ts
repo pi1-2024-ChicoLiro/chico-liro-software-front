@@ -64,13 +64,6 @@ export class DadosComponent implements OnInit {
       visible: true,
     },
     {
-      label: "Consumo Energetico",
-      property: "consumoEnergetico",
-      type: "text",
-      cssClasses: ["text-secondary"],
-      visible: true,
-    },
-    {
       label: "Data Criação",
       property: "createdAt",
       type: "text",
@@ -88,6 +81,7 @@ export class DadosComponent implements OnInit {
   subject$: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   data$: Observable<any> = this.subject$.asObservable();
   trilhasData = [];
+  trilhaId: any = 0;
 
   constructor(
     private dialog: MatDialog,
@@ -130,6 +124,7 @@ export class DadosComponent implements OnInit {
   }
 
   async trilhaChange(trilhaId: any) {
+    this.trilhaId = trilhaId;
     if (trilhaId == 0) return await this.getAllData();
 
     this.loadingService.showLoading(true);
@@ -165,6 +160,6 @@ export class DadosComponent implements OnInit {
     this.pagination.pageIndex = ev.pageIndex + 1;
     this.pagination.length = this.pagination.length;
 
-    await this.getAllData();
+    await this.trilhaChange(this.trilhaId);
   }
 }

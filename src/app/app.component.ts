@@ -168,7 +168,7 @@ export class AppComponent implements OnInit {
         children: [
           {
             type: "link",
-            label: "Trilhas",
+            label: "Percursos",
             icon: "mat:people_outline",
             route: "/trilhas",
           },

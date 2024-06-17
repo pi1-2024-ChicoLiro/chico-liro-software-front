@@ -20,7 +20,7 @@
     (paginatorChanged)="paginatorChange($event)"
     (filting)="(null)"
     [length]="pagination.length"
-    (count)="(count)"
+    [count]="pagination?.length"
     [searchCtrl]="searchCtrl"
     [showSelectTrilha]="true"
     [trilhas]="trilhasData"

@@ -78,7 +78,7 @@
               [(value)]="selectedTrilha"
               (selectionChange)="changeSelectTrilha()"
             >
-              <mat-option value="0">Todas</mat-option>
+              <mat-option value="0">Todos</mat-option>
               <mat-option *ngFor="let trilha of trilhas" [value]="trilha.id">
                 {{ trilha.name }}
               </mat-option>

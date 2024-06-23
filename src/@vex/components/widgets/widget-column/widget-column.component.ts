@@ -3,11 +3,10 @@ import { defaultChartOptions } from "../../../utils/default-chart-options";
 import { ApexOptions } from "../../chart/chart.component";
 
 @Component({
-  selector: "vex-widget-large-chart",
-  templateUrl: "./widget-large-chart.component.html",
-  styleUrls: ["./widget-large-chart.component.scss"],
+  selector: "vex-widget-column-chart",
+  templateUrl: "./widget-column.component.html",
 })
-export class WidgetLargeChartComponent implements OnInit {
+export class WidgetColumnChartComponent implements OnInit {
   @Input() series: ApexNonAxisChartSeries | ApexAxisChartSeries;
   @Input() options: ApexOptions = defaultChartOptions({
     grid: {
@@ -18,7 +17,7 @@ export class WidgetLargeChartComponent implements OnInit {
       },
     },
     chart: {
-      type: "area",
+      type: "bar",
       height: 384,
       sparkline: {
         enabled: false,
@@ -27,24 +26,28 @@ export class WidgetLargeChartComponent implements OnInit {
         enabled: false,
       },
     },
-    fill: {
-      type: "gradient",
-      gradient: {
-        shadeIntensity: 0.9,
-        opacityFrom: 0.7,
-        opacityTo: 0.5,
-        stops: [0, 90, 100],
+    plotOptions: {
+      bar: {
+        horizontal: true,
+        columnWidth: "55%",
+        borderRadius: 4,
       },
     },
-    colors: ["#ff9800", "#2196f3", "#009688", "#e91e63", "#4caf50"],
-    // labels: createDateArray(12),
-    xaxis: {
-      labels: {
-        show: false,
-        // format: "mm:ss",
-      },
+    stroke: {
+      show: true,
+      width: 10,
+      colors: ["transparent"],
+    },
+    colors: ["#9c27bd", "#009688", "#ffeb3b", "#3f51b5"],
+    dataLabels: {
+      enabled: false,
     },
     yaxis: {
+      labels: {
+        show: true,
+      },
+    },
+    xaxis: {
       labels: {
         show: true,
       },
@@ -52,6 +55,11 @@ export class WidgetLargeChartComponent implements OnInit {
     tooltip: {
       y: {
         formatter: function (val, opts) {
+          const seriesIndex = opts.seriesIndex;
+          const seriesName = opts.w.globals.seriesNames[seriesIndex];
+          if (seriesName === "Aceleração Média") {
+            return val + " m/s²";
+          }
           return val + " m/s";
         },
       },
@@ -64,7 +72,6 @@ export class WidgetLargeChartComponent implements OnInit {
       },
     },
   });
-
   constructor() {}
 
   ngOnInit() {}

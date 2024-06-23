@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { ApexOptions } from "../../chart/chart.component";
-import { defaultChartOptions } from "../../../utils/default-chart-options";
 import { createDateArray } from "../../../utils/create-date-array";
+import { defaultChartOptions } from "../../../utils/default-chart-options";
+import { ApexOptions } from "../../chart/chart.component";
 
 @Component({
   selector: "vex-widget-large-goal-chart",

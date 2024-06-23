@@ -1,12 +1,10 @@
-import { DateTime } from 'luxon';
-
 export function createDateArray(length: number) {
-  const dates: number[] = [];
+  const timestamps: number[] = [];
 
   for (let i = 0; i < length; i++) {
-    dates.push(+DateTime.local().minus({ day: i }).toJSDate());
+    const seconds = i * 30;
+    const milliseconds = seconds * 1000;
+    timestamps.push(milliseconds);
   }
-
-  return dates.reverse();
+  return timestamps;
 }
-

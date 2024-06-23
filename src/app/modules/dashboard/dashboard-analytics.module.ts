@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
+import { WidgetColumnChartModule } from "src/@vex/components/widgets/widget-column/widget-column.module";
 import { BreadcrumbsModule } from "../../../@vex/components/breadcrumbs/breadcrumbs.module";
 import { ChartModule } from "../../../@vex/components/chart/chart.module";
 import { PageLayoutModule } from "../../../@vex/components/page-layout/page-layout.module";
@@ -28,7 +29,7 @@ import { DashboardAnalyticsComponent } from "./dashboard-analytics.component";
     WidgetQuickValueCenterModule,
     WidgetQuickValueStartModule,
     WidgetLargeGoalChartModule,
-
+    WidgetColumnChartModule,
     WidgetAssistantModule,
     WidgetLargeChartModule,
     WidgetTableModule,

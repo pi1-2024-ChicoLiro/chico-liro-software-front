@@ -13,9 +13,14 @@
   class="container p-gutter grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
 >
   <vex-widget-large-chart
-    [series]="userSessionsSeries"
+    [series]="velocidadeTempo"
     class="sm:col-span-full"
   ></vex-widget-large-chart>
+
+  <vex-widget-column-chart
+    [series]="velocidadeAceleracao"
+    class="sm:col-span-full"
+  ></vex-widget-column-chart>
 
   <vex-widget-large-goal-chart
     [series]="salesSeries"

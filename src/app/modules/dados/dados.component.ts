@@ -58,7 +58,7 @@ export class DadosComponent implements OnInit {
 
     {
       label: "Aceleração Inst",
-      property: "acelaeracaoInstantanea",
+      property: "aceleracaoInstantanea",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,

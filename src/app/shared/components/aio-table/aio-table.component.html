@@ -79,7 +79,7 @@
               (selectionChange)="changeSelectTrilha()"
             >
               <mat-option value="0">Todos</mat-option>
-              <mat-option *ngFor="let trilha of trilhas" [value]="trilha.id">
+              <mat-option *ngFor="let trilha of trilhas" [value]="trilha">
                 {{ trilha.name }}
               </mat-option>
             </mat-select>

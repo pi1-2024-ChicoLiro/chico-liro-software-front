@@ -70,7 +70,7 @@ export class UsersComponent implements OnInit {
       visible: true,
     },
     {
-      label: "Distancia",
+      label: "Distancia (cm)",
       property: "distanciaPercorrida",
       type: "text",
       cssClasses: ["text-secondary"],

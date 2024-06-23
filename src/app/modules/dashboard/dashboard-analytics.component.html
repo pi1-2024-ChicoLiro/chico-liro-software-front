@@ -10,21 +10,18 @@
 </vex-secondary-toolbar>
 
 <div
-  class="container p-gutter grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"
+  class="container p-gutter grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
 >
   <vex-widget-large-chart
     [series]="velocidadeTempo"
     class="sm:col-span-full"
   ></vex-widget-large-chart>
-
   <vex-widget-column-chart
     [series]="velocidadeAceleracao"
     class="sm:col-span-full"
   ></vex-widget-column-chart>
 
-  <vex-widget-large-goal-chart
-    [series]="salesSeries"
-    class="sm:col-span-full"
-    total="4,374"
-  ></vex-widget-large-goal-chart>
+  <ng-container *ngFor="let trilha of dadosTrilhas">
+    <vex-widget-large-goal-chart [data]="trilha"></vex-widget-large-goal-chart>
+  </ng-container>
 </div>

@@ -42,30 +42,30 @@ export class DadosComponent implements OnInit {
     },
 
     {
-      label: "Tensão",
+      label: "Tensão (V)",
       property: "tensao",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,
     },
     {
-      label: "Velocidade Inst",
-      property: "velocidadeInstantanea",
+      label: "Velocidade Inst (cm/s)",
+      property: "velocidadeInstantaneaFormatted",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,
     },
 
     {
-      label: "Aceleração Inst",
-      property: "aceleracaoInstantanea",
+      label: "Aceleração Inst (cm/s²)",
+      property: "aceleracaoInstantaneaFormatted",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,
     },
     {
       label: "Data Criação",
-      property: "createdAt",
+      property: "createdAtFormatted",
       type: "text",
       cssClasses: ["text-secondary"],
       visible: true,
@@ -81,7 +81,7 @@ export class DadosComponent implements OnInit {
   subject$: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   data$: Observable<any> = this.subject$.asObservable();
   trilhasData = [];
-  trilhaId: any = 0;
+  trilha: any = 0;
 
   constructor(
     private dialog: MatDialog,
@@ -123,14 +123,15 @@ export class DadosComponent implements OnInit {
     }
   }
 
-  async trilhaChange(trilhaId: any) {
-    this.trilhaId = trilhaId;
-    if (trilhaId == 0) return await this.getAllData();
+  async trilhaChange(trilha: any) {
+    this.trilha = trilha.id;
+
+    if (trilha == 0) return await this.getAllData();
 
     this.loadingService.showLoading(true);
     try {
       const response: any = await this.dadosService.getDadosByTrilha(
-        trilhaId,
+        trilha.id,
         this.pagination.pageSize,
         this.pagination.pageIndex
       );
@@ -160,6 +161,6 @@ export class DadosComponent implements OnInit {
     this.pagination.pageIndex = ev.pageIndex + 1;
     this.pagination.length = this.pagination.length;
 
-    await this.trilhaChange(this.trilhaId);
+    await this.trilhaChange(this.trilha.id);
   }
 }

@@ -52,7 +52,7 @@ export class DashboardAnalyticsComponent implements OnInit, OnDestroy {
   }
 
   async getDatas() {
-    this.loadingService.showLoading(true);
+    await this.loadingService.showLoading(true);
     try {
       const response: any = await this.graficosService.getDatas();
 
@@ -66,7 +66,7 @@ export class DashboardAnalyticsComponent implements OnInit, OnDestroy {
       this.velocidadeAceleracao = response.dadosVelocidadeAceleracaoFormatados;
     } catch (error) {
     } finally {
-      this.loadingService.showLoading(false);
+      await this.loadingService.showLoading(false);
     }
   }
 

@@ -3,6 +3,7 @@ import { NgModule } from "@angular/core";
 
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { WidgetColumnChartModule } from "src/@vex/components/widgets/widget-column/widget-column.module";
 import { BreadcrumbsModule } from "../../../@vex/components/breadcrumbs/breadcrumbs.module";
 import { ChartModule } from "../../../@vex/components/chart/chart.module";
@@ -37,6 +38,7 @@ import { DashboardAnalyticsComponent } from "./dashboard-analytics.component";
     BreadcrumbsModule,
     MatButtonModule,
     PageLayoutModule,
+    MatSnackBarModule,
   ],
 })
 export class DashboardAnalyticsModule {}

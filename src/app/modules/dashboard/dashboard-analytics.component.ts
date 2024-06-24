@@ -82,14 +82,10 @@ export class DashboardAnalyticsComponent implements OnInit, OnDestroy {
   }
 
   async getDatas() {
-    const {
-      dadosVelocidadeTempoFormatados,
-      dadosVelocidadeAceleracaoFormatados,
-      dadosTrilhas,
-    } = await this.graficosService.getDatas();
-    this.dadosTrilhas = dadosTrilhas;
-    this.velocidadeTempo = dadosVelocidadeTempoFormatados;
-    this.velocidadeAceleracao = dadosVelocidadeAceleracaoFormatados;
+    const response: any = await this.graficosService.getDatas();
+    this.dadosTrilhas = response.dadosTrilhas;
+    this.velocidadeTempo = response.dadosVelocidadeTempoFormatados;
+    this.velocidadeAceleracao = response.dadosVelocidadeAceleracaoFormatados;
   }
 
   ngOnDestroy(): void {

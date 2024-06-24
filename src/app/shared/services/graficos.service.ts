@@ -9,7 +9,7 @@ export class GraficosService {
 
   async getDatas() {
     return await lastValueFrom(
-      this.http.get<any>(`${environment.BASE_URL}/graficos/get-all`)
+      this.http.get(`${environment.BASE_URL}/graficos/get-all`)
     );
   }
 }

@@ -1,0 +1,27 @@
+<vex-secondary-toolbar current="Dashboard">
+  <vex-breadcrumbs
+    [crumbs]="['Dashboards', 'Analítico']"
+    class="flex-auto"
+  ></vex-breadcrumbs>
+
+  <button class="ml-2" color="primary" mat-icon-button type="button">
+    <mat-icon svgIcon="mat:more_vert"></mat-icon>
+  </button>
+</vex-secondary-toolbar>
+
+<div
+  class="container p-gutter grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"
+>
+  <vex-widget-large-chart
+    [series]="velocidadeTempo"
+    class="sm:col-span-full"
+  ></vex-widget-large-chart>
+  <vex-widget-column-chart
+    [series]="velocidadeAceleracao"
+    class="sm:col-span-full"
+  ></vex-widget-column-chart>
+
+  <ng-container *ngFor="let trilha of dadosTrilhas">
+    <vex-widget-large-goal-chart [data]="trilha"></vex-widget-large-goal-chart>
+  </ng-container>
+</div>

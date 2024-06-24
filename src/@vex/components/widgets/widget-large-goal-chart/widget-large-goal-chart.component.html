@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="border-b py-4 px-6 flex items-center">
+    <h2 class="m-0 title flex-auto">{{ data.percurso }}</h2>
+
+    <button mat-icon-button type="button">
+      <mat-icon class="text-secondary" svgIcon="mat:cloud_download"></mat-icon>
+    </button>
+
+    <button mat-icon-button type="button">
+      <mat-icon class="text-secondary" svgIcon="mat:more_horiz"></mat-icon>
+    </button>
+  </div>
+  <!-- trajetoria percorrida, velocidade instantanea, aceleracao instantanea,  tempo de percurso, consumo energetico -->
+  <div class="py-6 px-6 grid">
+    <!-- <h2 class="display-2 font-bold m-0">{{ total }}</h2> -->
+    <div>
+      <!-- <h3 class="title font-medium mb-0">Trilha 1</h3> -->
+
+      <div class="flex items-center flex-row">
+        <p class="font-medium text-base mr-2">📏 Trajetória Percorrida:</p>
+        <p>{{ data.distancia }} cm</p>
+      </div>
+      <div class="flex items-center flex-row mt-2">
+        <p class="font-medium text-base mr-2">⏰ Tempo:</p>
+        <p>{{ data.tempoPercurso }}</p>
+      </div>
+      <div class="flex items-center flex-row mt-2">
+        <p class="font-medium text-base mr-2">
+          🛞 Velocidade Instantânea Média:
+        </p>
+        <p>{{ data.velocidade }} cm/s</p>
+      </div>
+      <div class="flex items-center flex-row mt-2">
+        <p class="font-medium text-base mr-2">
+          🏎️ Aceleração Instantânea Média:
+        </p>
+        <p>{{ data.aceleracao }} cm/s²</p>
+      </div>
+      <div class="flex items-center flex-row mt-2">
+        <p class="font-medium text-base mr-2">🔋 Tensão Média:</p>
+        <p>{{ data.tensao }} V</p>
+      </div>
+    </div>
+  </div>
+</div>

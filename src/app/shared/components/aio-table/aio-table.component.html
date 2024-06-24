@@ -1,0 +1,260 @@
+<vex-page-layout>
+  <vex-page-layout-content class="-mt-14">
+    <div class="card overflow-auto -mt-16" style="margin-top: 50px">
+      <div
+        class="bg-app-bar px-6 h-16 border-b sticky left-0 flex items-center"
+      >
+        <h2
+          class="title my-0 ltr:pr-4 rtl:pl-4 ltr:mr-4 rtl:ml-4 ltr:border-r rtl:border-l hidden sm:block flex-none"
+        >
+          <span *ngIf="selection.isEmpty()">{{ title }}</span>
+          <span *ngIf="selection.hasValue()"
+            >{{ selection.selected.length }}
+            {{ title.substring(0, title.length - 1)
+            }}<span *ngIf="selection.selected.length > 1">s</span>
+            selecionado<span *ngIf="selection.selected.length > 1"
+              >s</span
+            ></span
+          >
+        </h2>
+        <div *ngIf="selection.hasValue()" class="mr-4 pr-4 border-r flex-none">
+          <button
+            (click)="btnDeleteSelect(selection.selected)"
+            color="primary"
+            mat-icon-button
+            matTooltip="Delete selected"
+            type="button"
+          >
+            <mat-icon svgIcon="mat:delete"></mat-icon>
+          </button>
+
+          <button
+            color="primary"
+            mat-icon-button
+            matTooltip="Another action"
+            type="button"
+          >
+            <mat-icon svgIcon="mat:folder"></mat-icon>
+          </button>
+        </div>
+        <div
+          class="bg-foreground rounded-full px-4 max-w-[300px] flex-auto flex items-center border border-gray-300"
+        >
+          <input
+            [formControl]="searchCtrl"
+            class="px-4 py-2 border-0 outline-none w-full bg-transparent"
+            type="text"
+            (keyup.enter)="btnSearch()"
+            placeholder="Pesquisa rápida..."
+          />
+          <mat-icon
+            class="icon-sm text-secondary"
+            svgIcon="mat:search"
+          ></mat-icon>
+        </div>
+        <!-- <button
+          mat-raised-button
+          color="primary"
+          style="margin-left: 5px"
+          (click)="btnSearch()"
+          [disabled]="!searchCtrl.value"
+        >
+          pesquisa avançada
+        </button> -->
+        <button
+          mat-raised-button
+          color="primary"
+          style="margin-left: 5px"
+          (click)="btnReset()"
+        >
+          Limpar
+        </button>
+
+        <span class="flex-1"></span>
+        <ng-container *ngIf="showSelectTrilha">
+          <mat-form-field appearance="outline" class="w-64 mt-6">
+            <mat-label>Trilha</mat-label>
+            <mat-select
+              [(value)]="selectedTrilha"
+              (selectionChange)="changeSelectTrilha()"
+            >
+              <mat-option value="0">Todos</mat-option>
+              <mat-option *ngFor="let trilha of trilhas" [value]="trilha">
+                {{ trilha.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+
+        <button
+          [matMenuTriggerFor]="columnFilterMenu"
+          class="ml-4 flex-none"
+          mat-icon-button
+          matTooltip="Filter Columns"
+          type="button"
+        >
+          <mat-icon svgIcon="mat:filter_list"></mat-icon>
+        </button>
+        <button
+          (click)="btnReload()"
+          class="ml-4 flex-none"
+          color="primary"
+          mat-mini-fab
+          matTooltip="Recarregar"
+          type="button"
+        >
+          <mat-icon svgIcon="mat:change_circle"></mat-icon>
+        </button>
+        <button
+          (click)="btnCreate()"
+          class="ml-4 flex-none"
+          color="primary"
+          mat-mini-fab
+          matTooltip="Adicionar"
+          type="button"
+          [disabled]="!createBtn"
+        >
+          <mat-icon svgIcon="mat:add"></mat-icon>
+        </button>
+      </div>
+      <table
+        @stagger
+        [dataSource]="dataSource"
+        class="w-full"
+        mat-table
+        matSort
+      >
+        <!-- Checkbox Column -->
+        <ng-container matColumnDef="checkbox">
+          <th *matHeaderCellDef mat-header-cell>
+            <mat-checkbox
+              (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()"
+              color="primary"
+            >
+            </mat-checkbox>
+          </th>
+          <td *matCellDef="let row" class="w-4" mat-cell>
+            <mat-checkbox
+              (change)="$event ? selection.toggle(row) : null"
+              (click)="$event.stopPropagation()"
+              [checked]="selection.isSelected(row)"
+              color="primary"
+            >
+            </mat-checkbox>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="image">
+          <th *matHeaderCellDef mat-header-cell></th>
+          <td *matCellDef="let row" class="w-8 min-w-8 pr-0" mat-cell>
+            <img
+              [src]="row['profilePic']"
+              class="avatar h-8 w-8 align-middle"
+            />
+          </td>
+        </ng-container>
+
+        <!-- Text Columns -->
+        <ng-container *ngFor="let column of columns; trackBy: trackByProperty">
+          <ng-container
+            *ngIf="column.type === 'text'"
+            [matColumnDef]="column.property"
+          >
+            <th
+              *matHeaderCellDef
+              class="text-gray-500 uppercase text-xs"
+              mat-header-cell
+              mat-sort-header
+            >
+              {{ column.label }}
+            </th>
+            <td *matCellDef="let row" [ngClass]="column.cssClasses" mat-cell>
+              {{ row[column.property] }}
+            </td>
+          </ng-container>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="actions">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+          <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+            <button
+              (click)="$event.stopPropagation()"
+              [matMenuTriggerData]="{ item: row }"
+              [matMenuTriggerFor]="actionsMenu"
+              mat-icon-button
+              type="button"
+            >
+              <mat-icon svgIcon="mat:more_horiz"></mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
+        <tr
+          (click)="btnShow(row)"
+          *matRowDef="let row; columns: visibleColumns"
+          @fadeInUp
+          class="hover:bg-hover trans-ease-out cursor-pointer"
+          mat-row
+        ></tr>
+      </table>
+      <mat-paginator
+        [pageSizeOptions]="pageSizeOptions"
+        [pageSize]="pageSize"
+        class="sticky left-0"
+        [length]="count"
+        (page)="changingPage($event)"
+      ></mat-paginator>
+    </div>
+  </vex-page-layout-content>
+</vex-page-layout>
+
+<mat-menu #columnFilterMenu="matMenu" xPosition="before" yPosition="below">
+  <button
+    (click)="toggleColumnVisibility(column, $event)"
+    *ngFor="let column of columns"
+    class="checkbox-item mat-menu-item"
+  >
+    <mat-checkbox
+      (click)="$event.stopPropagation()"
+      [(ngModel)]="column.visible"
+      color="primary"
+    >
+      {{ column.label }}
+    </mat-checkbox>
+  </button>
+</mat-menu>
+
+<mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+  <ng-template let-item="item" matMenuContent>
+    <div *ngFor="let option of menu">
+      <button
+        *ngIf="option.menu === 'update'"
+        (click)="btnUpdate(item)"
+        mat-menu-item
+      >
+        <mat-icon svgIcon="mat:edit"></mat-icon>
+        <span>Atualizar</span>
+      </button>
+      <button
+        *ngIf="option.menu === 'delete'"
+        (click)="btnDelete(item)"
+        mat-menu-item
+      >
+        <mat-icon svgIcon="mat:delete" style="color: red"></mat-icon>
+        <span>Excluir</span>
+      </button>
+      <button
+        *ngIf="option.menu === 'active'"
+        (click)="btnUpdateStatus(item)"
+        mat-menu-item
+      >
+        <mat-icon *ngIf="item.active" svgIcon="mat:pan_tool"></mat-icon>
+        <mat-icon *ngIf="!item.active" svgIcon="mat:thumb_up"></mat-icon>
+        <span>{{ item.active ? "Desativar" : "Ativar" }}</span>
+      </button>
+    </div>
+  </ng-template>
+</mat-menu>

@@ -1,0 +1,29 @@
+<vex-secondary-toolbar current="Tabelas">
+  <vex-breadcrumbs
+    [crumbs]="['Tabelas', 'Dados']"
+    class="flex-auto"
+  ></vex-breadcrumbs>
+
+  <!-- <button class="ml-2" color="primary" mat-icon-button type="button">
+    <mat-icon svgIcon="mat:more_vert"></mat-icon>
+  </button> -->
+</vex-secondary-toolbar>
+
+<div class="container p-gutter">
+  <vex-aio-table
+    [title]="'Dados'"
+    [columns]="columns"
+    [data]="tableData"
+    [dataSource]="tableData"
+    [createBtn]="false"
+    (reload)="getAllData()"
+    (paginatorChanged)="paginatorChange($event)"
+    (filting)="(null)"
+    [length]="pagination.length"
+    [count]="pagination?.length"
+    [searchCtrl]="searchCtrl"
+    [showSelectTrilha]="true"
+    [trilhas]="trilhasData"
+    (changeSelect)="trilhaChange($event)"
+  ></vex-aio-table>
+</div>

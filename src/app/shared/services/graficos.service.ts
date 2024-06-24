@@ -8,8 +8,10 @@ export class GraficosService {
   constructor(private http: HttpClient) {}
 
   async getDatas() {
-    return await lastValueFrom(
-      this.http.get(`${environment.BASE_URL}/graficos/get-all`)
+    const response = await lastValueFrom(
+      this.http.get<any>(`${environment.BASE_URL}/graficos/get-all`)
     );
+
+    return response.data;
   }
 }

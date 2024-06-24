@@ -16,42 +16,8 @@ export class DashboardAnalyticsComponent implements OnInit, OnDestroy {
   ) {}
 
   private subscriptions = new Subscription();
-  velocidadeTempo: ApexAxisChartSeries = [
-    {
-      name: "Trilha 1",
-      data: [54, 17, 26],
-    },
-    {
-      name: "Trilha 2",
-      data: [21, 29, 12],
-    },
-  ];
-  velocidadeAceleracao: ApexAxisChartSeries = [
-    {
-      name: "Aceleração Média",
-      data: [
-        { x: "Trilha 1", y: 0.65 },
-        { x: "Trilha 2", y: 0.45 },
-        { x: "Trilha 3", y: 0.8 },
-      ],
-    },
-    {
-      name: "Velocidade Média",
-      data: [
-        { x: "Trilha 1", y: 0.5 },
-        { x: "Trilha 2", y: 0.66 },
-        { x: "Trilha 3", y: 0.7 },
-      ],
-    },
-    {
-      name: "Tensão Média",
-      data: [
-        { x: "Trilha 1", y: 2 },
-        { x: "Trilha 2", y: 3 },
-        { x: "Trilha 3", y: 2.5 },
-      ],
-    },
-  ];
+  velocidadeTempo: ApexAxisChartSeries = [];
+  velocidadeAceleracao: ApexAxisChartSeries = [];
   dadosTrilhas = [];
 
   async ngOnInit() {

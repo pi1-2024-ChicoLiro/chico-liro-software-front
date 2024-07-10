@@ -14,4 +14,12 @@ export class GraficosService {
 
     return response.data;
   }
+
+  async getLines() {
+    const response = await lastValueFrom(
+      this.http.get<any>(`${environment.BASE_URL}/graficos/get-lines`)
+    );
+
+    return response.data;
+  }
 }

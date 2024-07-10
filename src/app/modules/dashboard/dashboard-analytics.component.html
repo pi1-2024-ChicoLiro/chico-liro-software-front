@@ -25,3 +25,19 @@
     <vex-widget-large-goal-chart [data]="trilha"></vex-widget-large-goal-chart>
   </ng-container>
 </div>
+<div class="container p-gutter flex flex-row gap-2">
+  <vex-line
+    [data]="dadosDesenho[0]?.data ?? []"
+    [name]="'Percuso 1'"
+  ></vex-line>
+
+  <vex-line
+    [data]="dadosDesenho[1]?.data ?? []"
+    [name]="'Percuso 2'"
+  ></vex-line>
+
+  <vex-line
+    [data]="dadosDesenho[2]?.data ?? []"
+    [name]="'Percuso 3'"
+  ></vex-line>
+</div>

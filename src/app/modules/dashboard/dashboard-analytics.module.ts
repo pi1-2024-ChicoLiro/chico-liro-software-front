@@ -5,6 +5,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { WidgetColumnChartModule } from "src/@vex/components/widgets/widget-column/widget-column.module";
+import { LineComponent } from "src/app/shared/components/line/line.component";
 import { BreadcrumbsModule } from "../../../@vex/components/breadcrumbs/breadcrumbs.module";
 import { ChartModule } from "../../../@vex/components/chart/chart.module";
 import { PageLayoutModule } from "../../../@vex/components/page-layout/page-layout.module";
@@ -20,7 +21,7 @@ import { DashboardAnalyticsRoutingModule } from "./dashboard-analytics-routing.m
 import { DashboardAnalyticsComponent } from "./dashboard-analytics.component";
 
 @NgModule({
-  declarations: [DashboardAnalyticsComponent],
+  declarations: [DashboardAnalyticsComponent, LineComponent],
   imports: [
     CommonModule,
     DashboardAnalyticsRoutingModule,

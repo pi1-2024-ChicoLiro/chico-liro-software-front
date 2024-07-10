@@ -124,9 +124,9 @@ export class DadosComponent implements OnInit {
   }
 
   async trilhaChange(trilha: any) {
-    this.trilha = trilha.id;
+    this.trilha = trilha?.id;
 
-    if (trilha == 0) return await this.getAllData();
+    if (trilha == 0 || !trilha) return await this.getAllData();
 
     this.loadingService.showLoading(true);
     try {
@@ -160,6 +160,8 @@ export class DadosComponent implements OnInit {
     this.pagination.pageSize = ev.pageSize;
     this.pagination.pageIndex = ev.pageIndex + 1;
     this.pagination.length = this.pagination.length;
+
+    console.log(ev);
 
     await this.trilhaChange(this.trilha.id);
   }

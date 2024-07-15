@@ -29,6 +29,9 @@ export class DashboardAnalyticsComponent implements OnInit, OnDestroy {
 
   dadosDesenho = [];
 
+  data = [];
+  data2 = [];
+
   async ngOnInit() {
     await this.getDatas();
 
@@ -56,7 +59,6 @@ export class DashboardAnalyticsComponent implements OnInit, OnDestroy {
     this.subscriptions.add(
       this.socket.fromEvent("line").subscribe((data: any) => {
         this.dadosDesenho = data;
-
         // this.lineService.setData(data);
       })
     );
@@ -78,7 +80,37 @@ export class DashboardAnalyticsComponent implements OnInit, OnDestroy {
       this.dadosTrilhas = response.dadosTrilhas;
       this.velocidadeTempo = response.dadosVelocidadeTempoFormatados;
       this.velocidadeAceleracao = response.dadosVelocidadeAceleracaoFormatados;
+
       this.dadosDesenho = lines;
+      this.data2 = [
+        { rpmMotorEsq: 11, rpmMotorDir: 9 }, // Curva suave para a direita
+        { rpmMotorEsq: 12, rpmMotorDir: 8 }, // Curva suave para a direita
+        { rpmMotorEsq: 13, rpmMotorDir: 7 }, // Curva suave para a direita
+        { rpmMotorEsq: 14, rpmMotorDir: 6 }, // Curva suave para a direita
+        { rpmMotorEsq: 15, rpmMotorDir: 5 }, // Curva suave para a direita
+        { rpmMotorEsq: 14, rpmMotorDir: 6 }, // Curva suave para a direita
+        { rpmMotorEsq: 13, rpmMotorDir: 7 }, // Curva suave para a direita
+        { rpmMotorEsq: 12, rpmMotorDir: 8 }, // Curva suave para a direita
+        { rpmMotorEsq: 11, rpmMotorDir: 9 }, // Curva suave para a direita
+        { rpmMotorEsq: 14, rpmMotorDir: 6 }, // Curva suave para a direita
+        { rpmMotorEsq: 13, rpmMotorDir: 7 }, // Curva suave para a direita
+        { rpmMotorEsq: 12, rpmMotorDir: 8 }, // Curva suave para a direita
+        { rpmMotorEsq: 11, rpmMotorDir: 9 }, // Curva suave para a direita
+        { rpmMotorEsq: 10, rpmMotorDir: 10 }, // Linha reta
+        { rpmMotorEsq: 10, rpmMotorDir: 10 }, // Linha reta
+        { rpmMotorEsq: 10, rpmMotorDir: 10 }, // Linha reta
+        { rpmMotorEsq: 10, rpmMotorDir: 10 }, // Linha reta
+        { rpmMotorEsq: 10, rpmMotorDir: 10 }, // Linha reta
+        { rpmMotorEsq: 9, rpmMotorDir: 11 }, // Curva suave para a esquerda
+        { rpmMotorEsq: 8, rpmMotorDir: 12 }, // Curva suave para a esquerda
+        { rpmMotorEsq: 7, rpmMotorDir: 13 }, // Curva suave para a esquerda
+        { rpmMotorEsq: 6, rpmMotorDir: 14 }, // Curva suave para a esquerda
+        { rpmMotorEsq: 5, rpmMotorDir: 15 }, // Curva suave para a esquerda
+        { rpmMotorEsq: 6, rpmMotorDir: 14 }, // Curva suave para a esquerda
+        { rpmMotorEsq: 7, rpmMotorDir: 13 }, // Curva suave para a esquerda
+        { rpmMotorEsq: 8, rpmMotorDir: 12 }, // Curva suave para a esquerda
+        { rpmMotorEsq: 9, rpmMotorDir: 11 }, // Curva suave para a esquerda
+      ];
 
       this.cd.detectChanges();
     } catch (error) {

@@ -63,13 +63,6 @@ export class DadosComponent implements OnInit {
       cssClasses: ["text-secondary"],
       visible: true,
     },
-    {
-      label: "Data Criação",
-      property: "createdAtFormatted",
-      type: "text",
-      cssClasses: ["text-secondary"],
-      visible: true,
-    },
   ];
 
   pagination = {
